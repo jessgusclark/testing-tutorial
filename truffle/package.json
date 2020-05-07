@@ -1,4 +1,9 @@
 {
+  "name": "truffle",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jesse Clark",
+  "license": "MIT",
   "dependencies": {
     "@truffle/hdwallet-provider": "^1.0.34"
   }
