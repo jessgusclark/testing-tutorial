@@ -8,4 +8,14 @@ jobs:
         command: ganache-cli --deterministic
     steps:
       - checkout
-      
+      - Migrate Contracts
+        - steps:
+            - cd truffle
+            - truffle console --circleci
+            - truffle migrate
+            - .exit
+      - Test frontend
+        - steps: 
+            - yarn
+            - yarn test
+
