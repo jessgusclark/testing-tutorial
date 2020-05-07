@@ -1,20 +1,18 @@
-version: 2
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
 jobs:
-  build:
-    working_directory: ~/tmp
-    docker:
-      - image: circleci/node:12
-      - image: trufflesuite/ganache-cli
-        command: ganache-cli --deterministic
+  build-and-test:
+    executor:
+      name: node/default
     steps:
       - checkout
-      - run:
-        name: Migrate Contracts
-        command: 'cd truffle'
-        command: 'truffle console --circleci'
-        command: 'truffle migrate'
-        command: '.exit' 
-      - rund:
-        name: Test frontend
-        command: 'cd ../react-app'
-        command: 'yarn && yarn test'
+      - node/with-cache:
+          steps:
+            - run: cd react-app
+            - run: npm install
+            - run: npm test
+workflows:
+    build-and-test:
+      jobs:
+        - build-and-test
